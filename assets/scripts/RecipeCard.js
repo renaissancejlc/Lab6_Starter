@@ -1,8 +1,9 @@
 class RecipeCard extends HTMLElement {
   constructor() {
     // Part 1 Expose - TODO
-
+    super();
     // You'll want to attach the shadow DOM here
+    this.attachShadow({mode : 'open'});
   }
 
   set data(data) {
@@ -98,8 +99,81 @@ class RecipeCard extends HTMLElement {
 
     // Make sure to attach your root element and styles to the shadow DOM you
     // created in the constructor()
+      this.shadowRoot.appendChild(card);
+      this.shadowRoot.appendChild(styleElem);
+      
+      //MAIN IMAGE -works
+      let img = document.createElement('img') 
+      img.src =  searchForKey(data, "thumbnailUrl") 
+      img.alt = searchForKey(data, "headline")
+      card.appendChild(img);
 
-    // Part 1 Expose - TODO
+      //TITLE -P WITH CLASS= "TITLE" -> -A HREF=LINK TO ARTICLE -PRINT TITLE NAME -works
+      let title = document.createElement('p')
+      title.className = "title"
+      let titleRef = document.createElement('a')
+      titleRef.href = getUrl(data)
+      titleRef.textContent = searchForKey(data, "headline")
+      title.appendChild(titleRef)
+      card.appendChild(title)
+
+      //ORGANIZATION -P WITH CLASS = "ORGANIZATION" -works
+      let organization = document.createElement('p')
+      organization.className = "organization"
+      organization.textContent = getOrganization(data) 
+      card.appendChild(organization)
+
+
+      //RATING -DIV WITH CLASS = "RATING" -> -SPAN PRINT AVG REVIEW/ -works
+      let rating = document.createElement('div')
+      rating.className = "rating";
+      let avgRating = document.createElement('span');
+      avgRating.textContent = searchForKey(data, 'ratingValue');
+      let starPicture = document.createElement('img');
+      //set star pic
+      switch (Math.round(searchForKey(data, 'ratingValue'))){
+        case 0:
+          starPicture.src = "assets/images/icons/0-star.svg";
+          starPicture.alt = "0 stars"
+        case 1:
+          starPicture.src = "assets/images/icons/1-star.svg";
+          starPicture.alt = "1 stars"
+        case 2:
+          starPicture.src = "assets/images/icons/2-star.svg";
+          starPicture.alt = "2 stars"
+        case 3:
+          starPicture.src = "assets/images/icons/3-star.svg";
+          starPicture.alt = "3 stars"
+        case 4:
+          starPicture.src = "assets/images/icons/4-star.svg";
+          starPicture.alt = "4 stars"
+        case 5:
+          starPicture.src = "assets/images/icons/5-star.svg";
+          starPicture.alt = "5 stars"
+      }
+      
+      let reviewNum = document.createElement('span')
+      reviewNum.textContent = "(" + searchForKey(data, 'ratingCount') + ")"
+      if (searchForKey(data, "ratingValue") == undefined){
+        avgRating.textContent = "No Reviews"
+        reviewNum.textContent = ""
+      }
+      rating.appendChild(avgRating)
+      rating.appendChild(starPicture)
+      rating.appendChild(reviewNum)
+      card.appendChild(rating)
+    
+    //TIME -works
+    let time = document.createElement('time')
+    time.textContent = convertTime(searchForKey(data, 'totalTime'))
+    card.appendChild(time);
+
+    //INGREDIENTS //need to format ingredients
+    let ingredients = document.createElement('p')
+    ingredients.className = "ingredients"
+    ingredients.textContent =  createIngredientList(searchForKey(data, 'recipeIngredient'))
+
+    card.appendChild(ingredients)
   }
 }
 
