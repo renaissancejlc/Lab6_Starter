@@ -128,38 +128,39 @@ class RecipeCard extends HTMLElement {
       let rating = document.createElement('div')
       rating.className = "rating";
       let avgRating = document.createElement('span');
-      avgRating.textContent = searchForKey(data, 'ratingValue');
-      let starPicture = document.createElement('img');
+      let ratingPic = document.createElement('img');
+      let avgRatingVal = searchForKey(data, 'ratingValue')
+      avgRating.textContent = avgRatingVal;
       //set star pic
-      switch (Math.round(searchForKey(data, 'ratingValue'))){
+      switch (Math.round(avgRatingVal)){
         case 0:
-          starPicture.src = "assets/images/icons/0-star.svg";
-          starPicture.alt = "0 stars"
+          ratingPic.src = "assets/images/icons/0-star.svg";
+          ratingPic.alt = "0 stars"
         case 1:
-          starPicture.src = "assets/images/icons/1-star.svg";
-          starPicture.alt = "1 stars"
+          ratingPic.src = "assets/images/icons/1-star.svg";
+          ratingPic.alt = "1 stars"
         case 2:
-          starPicture.src = "assets/images/icons/2-star.svg";
-          starPicture.alt = "2 stars"
+          ratingPic.src = "assets/images/icons/2-star.svg";
+          ratingPic.alt = "2 stars"
         case 3:
-          starPicture.src = "assets/images/icons/3-star.svg";
-          starPicture.alt = "3 stars"
+          ratingPic.src = "assets/images/icons/3-star.svg";
+          ratingPic.alt = "3 stars"
         case 4:
-          starPicture.src = "assets/images/icons/4-star.svg";
-          starPicture.alt = "4 stars"
+          ratingPic.src = "assets/images/icons/4-star.svg";
+          ratingPic.alt = "4 stars"
         case 5:
-          starPicture.src = "assets/images/icons/5-star.svg";
-          starPicture.alt = "5 stars"
+          ratingPic.src = "assets/images/icons/5-star.svg";
+          ratingPic.alt = "5 stars"
       }
       
       let reviewNum = document.createElement('span')
       reviewNum.textContent = "(" + searchForKey(data, 'ratingCount') + ")"
-      if (searchForKey(data, "ratingValue") == undefined){
+      if (avgRatingVal == undefined){
         avgRating.textContent = "No Reviews"
         reviewNum.textContent = ""
       }
       rating.appendChild(avgRating)
-      rating.appendChild(starPicture)
+      rating.appendChild(ratingPic)
       rating.appendChild(reviewNum)
       card.appendChild(rating)
     
