@@ -157,6 +157,8 @@ class RecipeCard extends HTMLElement {
       reviewNum.textContent = "(" + searchForKey(data, 'ratingCount') + ")"
       if (avgRatingVal == undefined){
         avgRating.textContent = "No Reviews"
+      }
+      if (searchForKey(data, 'ratingCount') == undefined){
         reviewNum.textContent = ""
       }
       rating.appendChild(avgRating)
