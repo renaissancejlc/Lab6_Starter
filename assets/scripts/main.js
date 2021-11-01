@@ -98,9 +98,8 @@ function bindShowMore(){
        action = butt.textContent
      }
      else{
-       for (let i = 0; i< 3; i++){
+       for (let i = 0; i < 3; i++){
          main.lastChild.remove()
-         //main.lastchild.parent.removeChild(main.lastChild);
        }
       butt.textContent = "Show more"
       action = butt.textContent
@@ -114,5 +113,3 @@ function bindShowMore(){
   // that were fetched. You should fetch every recipe in the beginning, whether you
   // display it or not, so you don't need to fetch them again. Simply access them
   // in the recipeData object where you stored them/
-
-  // Part 2 Explore - TODO
