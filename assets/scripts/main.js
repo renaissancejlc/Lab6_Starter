@@ -83,32 +83,31 @@ then attaching them to the <main> element in index.html*/
 }
 
 function bindShowMore(){
-  let butt = document.querySelector("button");
-  let main = document.querySelector('main')
-
+    let butt = document.querySelector("button");
     let action = butt.textContent
-    let rec1 = document.createElement('recipe-card')
-    rec1.data = recipeData[recipes[3]];
-    let rec2 = document.createElement('recipe-card')
-    rec2.data = recipeData[recipes[4]];
-    let rec3 = document.createElement('recipe-card')
-    rec3.data = recipeData[recipes[5]];
+    let main = document.querySelector('main')
+   
      butt.addEventListener("click", function(){
      if(action == "Show more"){
-         main.appendChild(rec1)
-         main.appendChild(rec2)
-         main.appendChild(rec3)
+       for (let i =3; i < recipes.length; i++){
+         let el = document.createElement('recipe-card')
+         el.data = recipeData[recipes[i]];
+         main.appendChild(el);
+       }
        butt.textContent = "Show less"
+       action = butt.textContent
      }
-     if (action == "Show less"){
-       rec1.parentNode.removeChild(rec1)
-       rec2.parentNode.removeChild(rec2)
-       rec3.parentNode.removeChild(rec3)
+     else{
+       for (let i = 0; i< 3; i++){
+         main.lastChild.remove()
+         //main.lastchild.parent.removeChild(main.lastChild);
+       }
       butt.textContent = "Show more"
-      let arrow = document.querySelector('img')
-      arrow.src = "assets/images/icons/arrow-down.png"
+      action = butt.textContent
      }
+     // Part 2 Explore - TODO
   });
+}
   // This function is also called for you up above.
   // Use this to add the event listener to the "Show more" button, from within 
   // that listener you can then create recipe cards for the rest of the .json files
@@ -117,4 +116,3 @@ function bindShowMore(){
   // in the recipeData object where you stored them/
 
   // Part 2 Explore - TODO
-}
