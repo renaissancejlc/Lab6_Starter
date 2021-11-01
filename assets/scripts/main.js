@@ -5,7 +5,10 @@
 const recipes = [
   'https://introweb.tech/assets/json/ghostCookies.json',
   'https://introweb.tech/assets/json/birthdayCake.json',
-  'https://introweb.tech/assets/json/chocolateChip.json'
+  'https://introweb.tech/assets/json/chocolateChip.json',
+  'assets/recipes/baklava.json',
+  'assets/recipes/beef.json',
+  'assets/recipes/gingerbread.json'
 ];
 
 // Once all of the recipes that were specified above have been fetched, their
@@ -67,7 +70,7 @@ function createRecipeCards() {
   // three recipes we give you, you'll use the bindShowMore() function to
   // show any others you've added when the user clicks on the "Show more" button.
   let main = document.querySelector('main')
-for (let i =0; i < recipes.length; i++){
+for (let i =0; i < 3; i++){
   let el = document.createElement('recipe-card')
   el.data = recipeData[recipes[i]];
   main.appendChild(el);
@@ -80,6 +83,32 @@ then attaching them to the <main> element in index.html*/
 }
 
 function bindShowMore(){
+  let butt = document.querySelector("button");
+  let main = document.querySelector('main')
+
+    let action = butt.textContent
+    let rec1 = document.createElement('recipe-card')
+    rec1.data = recipeData[recipes[3]];
+    let rec2 = document.createElement('recipe-card')
+    rec2.data = recipeData[recipes[4]];
+    let rec3 = document.createElement('recipe-card')
+    rec3.data = recipeData[recipes[5]];
+     butt.addEventListener("click", function(){
+     if(action == "Show more"){
+         main.appendChild(rec1)
+         main.appendChild(rec2)
+         main.appendChild(rec3)
+       butt.textContent = "Show less"
+     }
+     if (action == "Show less"){
+       rec1.parentNode.removeChild(rec1)
+       rec2.parentNode.removeChild(rec2)
+       rec3.parentNode.removeChild(rec3)
+      butt.textContent = "Show more"
+      let arrow = document.querySelector('img')
+      arrow.src = "assets/images/icons/arrow-down.png"
+     }
+  });
   // This function is also called for you up above.
   // Use this to add the event listener to the "Show more" button, from within 
   // that listener you can then create recipe cards for the rest of the .json files
